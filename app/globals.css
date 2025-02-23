@@ -1,13 +1,22 @@
-:root {
-  min-height: 100vh;
-  display: flex;
-}
-
-
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Outfit", serif;
 }
 
+.container{
+  display: flex;
+  animation: fadin 1.5s;
+}
+
+@keyframes fadin {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
