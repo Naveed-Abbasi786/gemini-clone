@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.22.0",
+    "clipboard": "^2.0.11",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -19,8 +20,10 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "react-syntax-highlighter": "^15.6.1",
     "typescript": "^5"
   }
 }

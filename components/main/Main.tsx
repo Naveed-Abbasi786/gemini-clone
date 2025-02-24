@@ -4,6 +4,7 @@ import styles from "./main.module.css";
 import Image from "next/image";
 import { assets } from "@/public/assets/assets";
 import { Context } from "@/context/Context";
+import CodeBlock from "@/components/codeblocker"; 
 
 export default function Main() {
   const context = useContext(Context);
@@ -18,9 +19,21 @@ export default function Main() {
     showResult,
     loading,
     resultData,
+    selectedChat,
     setInput,
     input,
   } = context;
+
+  const extractCodeFromResponse = (response: string) => {
+    const codeBlockRegex = /```[\s\S]*?```/g;
+    const matches = response.match(codeBlockRegex);
+    if (matches) {
+      return matches.map((match) => match.replace(/```/g, "").trim());
+    }
+    return [];
+  };
+
+  const codeBlocks = extractCodeFromResponse(resultData);
 
   return (
     <div className={styles.main}>
@@ -37,7 +50,6 @@ export default function Main() {
       <div className={styles.main_container}>
         {!showResult ? (
           <>
-            {" "}
             <div className={styles.greet}>
               <p>
                 <span>Hello, Dev</span>
@@ -48,7 +60,7 @@ export default function Main() {
               <div className={styles.card}>
                 <p>Suggest beautiful places to see on an upcoming road trip</p>
                 <Image
-                                className={styles.icon_Images}
+                  className={styles.icon_Images}
                   src={assets.compass_icon}
                   alt="Compass Icon"
                   width={30}
@@ -61,7 +73,6 @@ export default function Main() {
                 <Image
                   src={assets.bulb_icon}
                   className={styles.icon_Images}
-
                   alt="Bulb Icon"
                   width={30}
                   height={30}
@@ -73,7 +84,6 @@ export default function Main() {
                 <Image
                   src={assets.message_icon}
                   className={styles.icon_Images}
-
                   alt="Message Icon"
                   width={30}
                   height={30}
@@ -81,12 +91,10 @@ export default function Main() {
               </div>
 
               <div className={styles.card}>
-                <p>Tell me about React JS and React Native</p>{" "}
-                {/* Corrected the capitalization */}
+                <p>Tell me about React JS and React Native</p>
                 <Image
                   src={assets.code_icon}
                   className={styles.icon_Images}
-
                   alt="Code Icon"
                   width={30}
                   height={30}
@@ -104,12 +112,10 @@ export default function Main() {
                 width={40}
                 height={40}
               />
-              <p>{recentPromts}</p>
+               <p>{recentPromts}</p> 
             </div>
             <div className={styles.result_data}>
-              <Image src={assets.gemini_icon}
-                width={40}
-                height={40}  alt="" />
+              <Image src={assets.gemini_icon} width={40} height={40} alt="" />
               {loading ? (
                 <div className={styles.loader}>
                   <hr />
@@ -117,7 +123,12 @@ export default function Main() {
                   <hr />
                 </div>
               ) : (
-                <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                <div>
+                  <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                  {codeBlocks.map((code, index) => (
+                    <CodeBlock key={index} code={code} language="javascript" />
+                  ))}
+                </div>
               )}
             </div>
           </div>
@@ -130,8 +141,7 @@ export default function Main() {
               onChange={(e) => setInput(e.target.value)}
               value={input}
               placeholder="Enter a prompt here"
-            />{" "}
-            {/* Corrected the placeholder text */}
+            />
             <div>
               <Image
                 src={assets.gallery_icon}
