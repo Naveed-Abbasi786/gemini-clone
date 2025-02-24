@@ -12,17 +12,17 @@ export default function Sidebar() {
     throw new Error("Context must be used within a ContextProvider");
   }
 
-  const {  prevPrompts,loadChat, selectedChat , newChat } = context;
+  const {  prevPrompts,loadChat , newChat } = context;
   return (
     <div className={styles.sidebar}>
       <div className={styles.top}>
        
        <div className={styles.header}>
         <h1 className={styles.heading}>Gemini</h1>
-        <Image src={assets.plus_icon} alt="new chat" width={20} height={20} className={styles.icon_Images}/>
+        <Image onClick={() => newChat()} src={assets.plus_icon} alt="new chat" width={20} height={20} className={styles.icon_Images}/>
 
        </div>
-        <div onClick={() => newChat()} className={styles.newChat}>
+        <div  className={styles.newChat}>
           <Image src={assets.plus_icon} alt="new chat" width={20} height={20} />
           <input type="text" placeholder="Search Recent Chat" className={styles.search_Recent}/>
         </div>

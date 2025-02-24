@@ -19,7 +19,6 @@ export default function Main() {
     showResult,
     loading,
     resultData,
-    selectedChat,
     setInput,
     input,
   } = context;
@@ -135,41 +134,43 @@ export default function Main() {
         )}
 
         <div className={styles.main_bottom}>
-          <div className={styles.search_box}>
-            <input
-              type="text"
-              onChange={(e) => setInput(e.target.value)}
-              value={input}
-              placeholder="Enter a prompt here"
-            />
-            <div>
-              <Image
-                src={assets.gallery_icon}
-                className={styles.icon_Images}
-                alt="Gallery Icon"
-                width={30}
-                height={30}
-              />
-              <Image
-                src={assets.mic_icon}
-                alt="Mic Icon"
-                className={styles.icon_Images}
-                width={30}
-                height={30}
-              />
-              <Image
-                src={assets.send_icon}
-                className={styles.icon_Images}
-                onClick={() => {
-                  console.log("Send button clicked");
-                  onSent(input);
-                }}
-                alt="Send Icon"
-                width={30}
-                height={30}
-              />
-            </div>
-          </div>
+        <div className={styles.promt_box}>
+  <input
+    type="text"
+    onChange={(e) => setInput(e.target.value)}
+    value={input}
+    placeholder="Enter a prompt here"
+  />
+  <div className={styles.icons_container}>
+    <Image
+      src={assets.gallery_icon}
+      className={styles.icon_Images}
+      id={styles.gallery_Icon}
+      alt="Gallery Icon"
+      width={30}
+      height={30}
+    />
+    <Image
+      src={assets.mic_icon}
+      alt="Mic Icon"
+      className={styles.icon_Images}
+      id={styles.mic_Icon}
+      width={30}
+      height={30}
+    />
+    <Image
+      src={assets.send_icon}
+      className={styles.icon_Images}
+      onClick={() => {
+        console.log("Send button clicked");
+        onSent(input);
+      }}
+      alt="Send Icon"
+      width={30}
+      height={30}
+    />
+  </div>
+</div>
           <p className={styles.bottom_Info}>
             Gemini may display inaccurate info, including about people, so
             double-check its responses. Your privacy and Gemini Apps

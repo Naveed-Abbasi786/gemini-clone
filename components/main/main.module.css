@@ -81,8 +81,7 @@
     padding: 0px 20px;
     margin: auto;
 }
-
-.search_box {
+.promt_box {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -90,28 +89,75 @@
     background-color: #f0f4f9;
     padding: 10px 20px;
     border-radius: 50px;
-}
-
-.search_box img {
+    width: 100%; /* Ensure it takes full width */
+    max-width: 800px; 
+    margin: 0 auto;
+  }
+  
+  .promt_box img {
     width: 24px;
     cursor: pointer;
-}
-
-.search_box input {
+  }
+  
+  .promt_box input {
     flex: 1;
     background-color: transparent;
     border: none;
     outline: none;
     padding: 8px;
     font-size: 18px;
-}
-
-.search_box div {
+    width: 100%;
+  }
+  
+  .promt_box .icons_container {
     display: flex;
     align-items: center;
+    
     gap: 15px;
-}
-
+  }
+  
+  /* Responsive Design for Smaller Screens */
+  @media (max-width: 768px) {
+    .promt_box {
+      gap: 10px; /* Reduce gap between elements */
+      padding: 8px 15px; /* Reduce padding */
+      border-radius: 30px; /* Adjust border radius */
+    }
+  
+    .promt_box input {
+      font-size: 16px; /* Reduce font size */
+      padding: 6px; /* Reduce padding */
+    }
+  
+    .promt_box img {
+      width: 20px; /* Reduce icon size */
+    }
+  
+    .promt_box .icons_container {
+      gap: 10px; /* Reduce gap between icons */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .promt_box {
+      gap: 5px; /* Further reduce gap */
+      padding: 6px 10px; /* Further reduce padding */
+      border-radius: 20px; /* Further adjust border radius */
+    }
+  
+    .promt_box input {
+      font-size: 14px; /* Further reduce font size */
+      padding: 4px; /* Further reduce padding */
+    }
+  
+    .promt_box img {
+      width: 18px; /* Further reduce icon size */
+    }
+  
+    .promt_box .icons_container {
+      gap: 8px; /* Further reduce gap between icons */
+    }
+  }
 .bottom_Info {
     font-size: 13px;
     margin: 15px auto;
@@ -141,6 +187,8 @@
 .icon_Images{
     object-fit: contain;
  }
+
+
 
 .result_data{
     display: flex;
@@ -182,10 +230,13 @@
     .main_bottom Image{
         width: 20px;
     }
-    .search_box{
+    .promt_box{
         padding: 5px 10px;
     }
-    .search_box div{
+    .promt_box div{
         gap: 5px;
+    }
+    #gallery_Icon,#mic_Icon{
+        display: none;
     }
 }
