@@ -5,7 +5,7 @@ import Image, { StaticImageData } from "next/image";
 import { assets } from "@/public/assets/assets";
 import { Context } from "@/context/Context";
 import CodeBlock from "@/components/codeblocker";
-import Sidebar from "../mobilesidebar/mobileSidebar";
+import Sidebar from "../../mobilesidebar/mobileSidebar";
 
 interface SuggestCards {
   Icon: StaticImageData;
@@ -67,6 +67,11 @@ export default function Main() {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") { 
+      onSent(input); 
+    }
   };
   return (
     <div className={styles.main}>
@@ -159,6 +164,7 @@ export default function Main() {
               type="text"
               onChange={(e) => setInput(e.target.value)}
               value={input}
+              onKeyDown={handleKeyPress} 
               placeholder="Enter a prompt here"
             />
             <div className={styles.icons_container}>
@@ -182,9 +188,9 @@ export default function Main() {
                 src={assets.send_icon}
                 className={styles.icon_Images}
                 onClick={() => {
-                  console.log("Send button clicked");
                   onSent(input);
                 }}
+
                 alt="Send Icon"
                 width={30}
                 height={30}

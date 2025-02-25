@@ -1,5 +1,5 @@
 "use client";
-import runChat from "@/components/config/gemini";
+import runChat from "@/config/gemini";
 import { createContext, useState, ReactNode, FC, SetStateAction, Dispatch } from "react";
 
 interface ContextProps {
@@ -37,7 +37,7 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
   const [showResult, setShowResult] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [resultData, setResultData] = useState<string>("");
-  const [selectedChat, setSelectedChat] = useState<string | null>(null); // Track selected chat
+  const [selectedChat, setSelectedChat] = useState<string | null>(null); 
 
   const delayPara = (index: number, nextWord: string) => {
     setTimeout(() => {
@@ -55,10 +55,10 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    setRecentPromts(prompt); // Use the prompt argument
-    setPrevPromts((prev) => [...prev, prompt]); // Store the prompt in prevPrompts
+    setRecentPromts(prompt); 
+    setPrevPromts((prev) => [...prev, prompt]);
   
-    const response = await runChat(prompt); // Use the prompt argument
+    const response = await runChat(prompt); 
     const responseArray = response?.split("**") || [];
     let newResponse = "";
   
@@ -111,8 +111,8 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
     newChat,
     loadChat, 
     selectedChat, 
-    prevResults, // Add this
-    setPrevResults, // Add this
+    prevResults,
+    setPrevResults, 
   };
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
