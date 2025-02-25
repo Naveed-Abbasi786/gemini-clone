@@ -16,6 +16,7 @@
     font-weight: 600;
 }
 .icon_Images{
+    cursor: pointer;
     object-fit: cover;
  }
 
@@ -87,4 +88,8 @@
         display: none;
     }
     
-}
+} .highlight {
+    background-color: yellow; 
+    font-weight: bold;
+    color: #000;
+  }

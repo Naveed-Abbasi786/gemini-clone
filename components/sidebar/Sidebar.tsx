@@ -12,36 +12,78 @@ export default function Sidebar() {
     throw new Error("Context must be used within a ContextProvider");
   }
 
-  const {  prevPrompts,loadChat , newChat } = context;
+  const { prevPrompts, loadChat, newChat } = context;
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredPrompts = prevPrompts.filter((prompt) =>
+    prompt.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const highlightSearchQuery = (text: string, query: string) => {
+    if (!query) return text;
+
+    const regex = new RegExp(`(${query})`, "gi");
+
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? (
+        <span key={index} className={styles.highlight}>
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.top}>
-       
-       <div className={styles.header}>
-        <h1 className={styles.heading}>Gemini</h1>
-        <Image onClick={() => newChat()} src={assets.plus_icon} alt="new chat" width={20} height={20} className={styles.icon_Images}/>
-
-       </div>
-        <div  className={styles.newChat}>
-          <Image src={assets.plus_icon} alt="new chat" width={20} height={20} />
-          <input type="text" placeholder="Search Recent Chat" className={styles.search_Recent}/>
+        <div className={styles.header}>
+          <h1 className={styles.heading}>Gemini</h1>
+          <Image
+            onClick={() => newChat()}
+            src={assets.plus_icon}
+            alt="new chat"
+            width={20}
+            height={20}
+            className={styles.icon_Images}
+          />
+        </div>
+        <div className={styles.newChat}>
+          <Image
+            src={assets.search_icon}
+            alt="new chat"
+            width={16}
+            height={16}
+          />
+          <input
+            type="text"
+            placeholder="Search Recent Chat"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={styles.search_Recent}
+          />
         </div>
         <div className={styles.recent}>
-            <p className={styles.recentTitle}>Recent Promts</p>
+          <p className={styles.recentTitle}>Recent Promts</p>
 
-            {prevPrompts.map((item, idx) => (
-              <div   onClick={() => loadChat(idx)} key={idx} className={styles.recentEntry}>
-                <Image
-                  src={assets.message_icon}
-                  alt="chat"
-                  width={20}
-                  height={20}
-                />
-                <p>{item.slice(0,20)}...</p>
-              </div>
-            ))}
-          </div>
-       
+          {filteredPrompts.map((item, idx) => (
+            <div
+              onClick={() => loadChat(idx)}
+              key={idx}
+              className={styles.recentEntry}
+            >
+              <Image
+                src={assets.message_icon}
+                alt="chat"
+                width={20}
+                height={20}
+              />
+              <p>{highlightSearchQuery(item.slice(0, 20), searchQuery)}...</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.bottom}>
         <div className={`${styles.bottomItem} ${styles.recentEntry}`}>

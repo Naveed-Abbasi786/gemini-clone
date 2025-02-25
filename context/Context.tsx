@@ -48,24 +48,25 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
   const newChat = () => {
     setLoading(false);
     setShowResult(false);
-    setSelectedChat(null); // Reset selected chat when starting a new chat
+    setSelectedChat(null); 
   };
+  
   const onSent = async (prompt: string) => {
     setResultData("");
     setLoading(true);
     setShowResult(true);
-    setRecentPromts(input);
-    setPrevPromts((prev) => [...prev, input]); 
+    setRecentPromts(prompt); // Use the prompt argument
+    setPrevPromts((prev) => [...prev, prompt]); // Store the prompt in prevPrompts
   
-    const response = await runChat(input);
+    const response = await runChat(prompt); // Use the prompt argument
     const responseArray = response?.split("**") || [];
-    let newResponse = ""; 
+    let newResponse = "";
   
     for (let i = 0; i < responseArray?.length; i++) {
       if (i === 0 || i % 2 !== 1) {
         newResponse += responseArray[i];
       } else {
-        newResponse += "<b>" + responseArray[i] + "</b>"; 
+        newResponse += "<b>" + responseArray[i] + "</b>";
       }
     }
   
@@ -80,15 +81,14 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
     setLoading(false);
     setInput("");
   
-    // Store the result data in the prevResults array
     setPrevResults((prev) => [...prev, newResponse2]);
   };
 
   const loadChat = (index: number) => {
     const selectedPrompt = prevPrompts[index];
     setRecentPromts(selectedPrompt);
-    setSelectedChat(selectedPrompt); // Set the selected chat
-    setShowResult(true); // Show the result section
+    setSelectedChat(selectedPrompt); 
+    setShowResult(true); 
   
     const selectedResult = prevResults[index]; 
     setResultData(selectedResult || ""); 
@@ -109,8 +109,8 @@ const ContextProvider: FC<ProviderProps> = ({ children }) => {
     setResultData,
     onSent,
     newChat,
-    loadChat, // Add loadChat to context
-    selectedChat, // Add selectedChat to context
+    loadChat, 
+    selectedChat, 
     prevResults, // Add this
     setPrevResults, // Add this
   };
